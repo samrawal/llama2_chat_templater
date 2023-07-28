@@ -11,13 +11,15 @@ class PromptTemplate:
         if return_prompt:
             return self.build_prompt()
 
-    def add_model_reply(self, reply: str, includes_history=True):
+    def add_model_reply(self, reply: str, includes_history=True, return_reply=True):
         reply_ = reply.replace(self.build_prompt(), "") if includes_history else reply
         self.model_replies.append(reply_)
         if len(self.user_messages) != len(self.model_replies):
             raise ValueError(
                 "Number of user messages does not equal number of system replies."
             )
+        if return_reply:
+            return reply_
 
     def get_user_messages(self, strip=True):
         return [x.strip() for x in self.user_messages] if strip else self.user_messages
