@@ -1,5 +1,5 @@
 # Llama2-Chat Templater
-An abstraction to conveniently work with the chat template for Llama2-chat
+An abstraction to conveniently generate chat templates for Llama2, and get back inputs/outputs cleanly.
 
 # about
 - The Llama2 models follow a specific template when prompting it in a chat style, including using tags like `[INST]`, `<<SYS>>`, etc. in a particular structure (more details [here](https://github.com/facebookresearch/llama#fine-tuned-chat-models)). 
