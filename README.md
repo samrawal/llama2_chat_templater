@@ -10,6 +10,11 @@ An abstraction to conveniently generate chat templates for Llama2, and get back 
     - https://www.philschmid.de/llama-2#how-to-prompt-llama-2-chat
     - https://gpus.llm-utils.org/llama-2-prompt-template/
 
+# use
+- Initialize with system prompt (`pt = PromptTemplate("You are a robot who enjoys skiing.")`)
+- Add user messages with `add_user_message`; add model responses with `add_model_reply` (previous history will automatically be handled)
+- Get clean list of strings of messages and replies with `get_user_messages` and `get_model_replies`
+
 
 # example
 Below is an example using this wrapper when inferencing Llama2 via HuggingFace:
