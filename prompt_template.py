@@ -1,10 +1,8 @@
 class PromptTemplate:
-    system_prompt = None
-    user_messages = []
-    model_replies = []
-
     def __init__(self, system_prompt=None):
         self.system_prompt = system_prompt
+        self.user_messages = []
+        self.model_replies = []
 
     def add_user_message(self, message: str, return_prompt=True):
         self.user_messages.append(message)
@@ -47,6 +45,9 @@ class PromptTemplate:
                 conversation_ = "[INST] " + conversation_
             CONVO += conversation_
 
-        CONVO += f"[INST] {self.user_messages[-1]} [/INST]"
+        if len(self.user_messages)==1:
+          CONVO += f"{self.user_messages[-1]} [/INST]"
+        else:
+          CONVO += f"[INST] {self.user_messages[-1]} [/INST]"
 
         return SYS + CONVO
