@@ -9,7 +9,7 @@ class PromptTemplate:
         if return_prompt:
             return self.build_prompt()
 
-    def add_model_reply(self, reply: str, includes_history=True, return_reply=True):
+    def add_model_reply(self, reply: str, includes_history=True, return_reply=False):
         reply_ = reply.replace(self.build_prompt(), "") if includes_history else reply
         self.model_replies.append(reply_)
         if len(self.user_messages) != len(self.model_replies):
@@ -32,22 +32,22 @@ class PromptTemplate:
             )
 
         if self.system_prompt is not None:
-            SYS = f"[INST] <<SYS>>\n{self.system_prompt}\n<</SYS>>"
+            SYS = f"[INST] <<SYS>>\n{self.system_prompt}\n<</SYS>> "
         else:
-            SYS = ""
+            SYS = "[INST]"
 
         CONVO = ""
-        SYS = "<s>" + SYS
+        SYS = "<s> " + SYS
         for i in range(len(self.user_messages) - 1):
             user_message, model_reply = self.user_messages[i], self.model_replies[i]
-            conversation_ = f"{user_message} [/INST] {model_reply} </s>"
+            conversation_ = f"{user_message} [/INST] {model_reply} </s> "
             if i != 0:
-                conversation_ = "[INST] " + conversation_
+                conversation_ = "<s> [INST] " + conversation_
             CONVO += conversation_
 
         if len(self.user_messages)==1:
           CONVO += f"{self.user_messages[-1]} [/INST]"
         else:
-          CONVO += f"[INST] {self.user_messages[-1]} [/INST]"
+          CONVO += f"<s> [INST] {self.user_messages[-1]} [/INST]"
 
         return SYS + CONVO
