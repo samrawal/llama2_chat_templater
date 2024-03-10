@@ -4,6 +4,9 @@ class PromptTemplate:
         self.user_messages = []
         self.model_replies = []
 
+    def __str__(self):
+        return self.build_prompt()
+
     def add_user_message(self, message: str, return_prompt=True):
         self.user_messages.append(message)
         if return_prompt:
